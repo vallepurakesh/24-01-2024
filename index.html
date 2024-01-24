@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 24/01/2024</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+   
+   
+</head>
+  <body style="padding: 100px;">
+      <h1 style="color: blue;">Chapter 5. Getting Ready to Start NetView</h1>
+      <p style="font-size: 20px;font-style: normal;margin: inherit;">
+          Before starting the NetView program, review the following START procedures:
+      </p>
+      <p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	CNMPROC (CNMSJ009) for the NetView program
+      </p>
+      <p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	CNMPSSI (CNMSJ010) for the NetView subsystem
+      </p>
+      <p style="font-size: 20px;font-style: normal;margin: inherit;">
+The CNMSTYLE member in the DSIPARM data set is used during NetView initialization. Review the CNMSTYLE member and make any changes necessary for your installation.
+</p>
+      
+      <br>
+    <h1 style="font-size: 35px;color: bule;">NetView and Subsystem Application Procedures</h1>  
+        <hr class="h">
+      <style>
+          .h{
+              
+              widows: 100%;
+              height: 7px;
+              border: 0 none;
+              margin-right: auto;
+              margin-left: auto;
+              margin-top: 0px;
+              margin-bottom: 0px;
+              background-color:blue;
+          } 
+          h1{
+              
+              color: blue;
+              font-family: aller;
+              font-size: 45px;
+          }
+      </style>
+      
+      <p style="font-size: 20px;font-style: normal;margin: inherit;">Review and update the CNMPROC (CNMSJ009) sample and the CNMPSSI (CNMSJ010) sample:
+      </p>
+      <p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	The name of the PROCLIB member and the PROC statement must begin with the 4-character subsystem name that you defined for running the NetView program. The associated CNMPSSI (CNMSJ010) start procedure must also begin with this same subsystem name. CNMP is used in the sample network.
+      </p>
+      <p style="font-size: 20px;font-style: normal;margin: inherit;">
+If the PROCLIB member name does not match an entry in IEFSSNxx, use the SUB= parameter with the START command to specify a subsystem other than the MASTER subsystem. Specify a subsystem where SYSIN and SYSOUT are not supported.
+      </p>
+      <p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	If you start a second copy of the NetView program in the same host, use a procedure name that begins with a 4-character subsystem name that is different from the one you already started. Add the 4- character subsystem name to the IEFSSNxx member in the SYS1.PARMLIB data set and specify DSI4LSIT as INITRTN.
+      </p>
+      <p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	If you plan to start the NetView application PROC under the master subsystem before you start JES, see 
+     
+      <p style="font-size: 20px;font-style: normal;margin: inherit;"><u> “Starting the NetView Program Before Starting JES” on page 66.</u></p>
+      </p>
+      <p style="font-size: 20px;font-style: normal;margin: inherit;">
+If you start the NetView program before starting the NetView subsystem (SSI) or stop the SSI before stopping the NetView program, messages similar to the following are issued:
+</p>
+        
+ <img style="width: 100%;height: 80px;" src="Screenshot%202024-01-24%20143000.png">     
+      
+   <h1 style="font-size: 35px;color: bule;">Modifying the NetView Subsystem Interface Procedure	</h1>   
+      
+   <hr class="h">
+      <style>
+          .h{
+              
+              widows: 100%;
+              height: 7px;
+              border: 0 none;
+              margin-right: auto;
+              margin-left: auto;
+              margin-top: 0px;
+              margin-bottom: 0px;
+              background-color:blue;
+          } 
+          h1{
+              
+              color: blue;
+              font-family: aller;
+              font-size: 45px;
+          }
+      </style>
+       
+      <p style="font-size: 20px;font-style: normal;margin: inherit;">
+    Update the NetView subsystem interface procedure, CNMPSSI (CNMSJ010) member in the SYS1.PROCLIB data set, as required for your environment:
+    </p>
+    <p style="font-size: 20px;font-style: normal;margin: inherit;"><u>
+•	“Changing Symbolic Variables” on page 39
+        </p></u>
+    <p style="font-size: 20px;font-style: normal;margin: inherit;"><u>
+•	“Running the NetView Subsystem Interface as a Job” on page 40
+
+        </u>
+    </p>
+      
+    <p style="font-size: 20px;font-style: normal;margin: inherit;"><b>Changing Symbolic Variables</b></p>  
+      
+      <p style="font-size: 25px;font-style: normal;margin: inherit;">Review and modify the following symbolic variables as required for your installation:
+
+          </p>
+      
+      <p style="font-size: 25px;font-style: normal;margin: inherit;"><b>ARM</b></p>
+      <p style="font-size: 20px;font-style: normal;margin: inherit;">
+Enables the NetView subsystem for MVS automatic restart management (ARM) and supplies a name (up to 16 characters) by which this NetView subsystem is to be known to ARM.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+The CNMPSSI ARM parameter can have the following values:
+
+
+</p>
+  <p style="font-size: 25px;font-style: normal;margin: inherit;"><b>*ARM</b></p>    
+    
+<p style="font-size: 25px;font-style: normal;margin: inherit;">
+Specifies that the NetView subsystem is to be enabled. The NetView program generates a NetView ARM element name.
+</p>
+
+<hr>
+
+<hr>
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>name</b></p>
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">Specifies that the NetView subsystem is to be enabled and identifies the NetView ARM element name. This name can be 1 - 16 alphanumeric characters in length. The first character must be alphabetic. The name can contain the special characters #, @, and $.
+</p>
+
+<p style="font-size: 25px;font-style: normal;margin: inherit;">*NOARM</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+Specifies that the NetView subsystem is not to be enabled. *NOARM is the default value.
+</p>
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>PPIOPT</b></p>
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+Specifies whether you want to initialize the PPI facility. The PPIOPT parameter can have the following values:
+</p>
+
+
+
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>PPI</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">Specifies that the PPI facility is to be started and initialized for the NetView subsystem address space. You cannot request this option for more than one subsystem address space. If the PPI is already active on another subsystem address space, it does not initialize for additional requests. PPI is the default value.
+</p>
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>NOPPI</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">Specifies that the PPI facility is not initialized for the subsystem address space.</p>
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>P256BUF</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">Specifies the number of 256-byte PPI buffers. The default value is 300.</p>
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>P4000BUF</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">Specifies the number of 4000-byte PPI buffers. The default value is 0.</p>
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>REG</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">Specifies the region size for the NetView subsystem buffer address space in KB (the number specified times 1024). The default value is 16600.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+The default value allows for 4200 total message and command buffers. To calculate the correct region size for your network, refer to IBM Z NetView Tuning Guide.</p>
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>ROUTECDE</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">Specifies the route code to be used for messages issued by the SSI address space.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+Messages that can be issued before this parameter is processed use the default route code 1, regardless of the value set here. Valid values are in the range 1 – 128.
+</p>
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>SQ1</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+Specifies the high-level qualifiers for NetView system data sets. The default value is
+    NETVIEW.V6R3M0.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+You can also adjust the CNMPSSI parameters using the SSI statements in the CNMSTYLE member.
+
+
+</p>
+
+<p style="font-size: 35px; color: black;">Running the NetView Subsystem Interface as a Job</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+To run the NetView subsystem interface as a job, remove the asterisk (*) from the first two lines and the final two lines. Also update the JOB statement to reflect your installation requirements. The first two lines are shown here:
+
+</p>
+<img  style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20150522.png">
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">The final two lines are shown here:</p>
+<img style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20151137.png">
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    Make sure that the PROC name you specify in this statement agrees with the one you specify in CNMPROC (CNMSJ009). Both of these procedure names must match the NetView subsystem name that you specified in your SYS1.PARMLIB data set member IEFSSNxx.</p>
+
+
+
+<hr>
+
+<hr>
+
+<br>
+
+<h1 style="font-size: 35px; color: bule;">Modifying the NetView Startup Procedure</h1>
+<hr class="h">
+      <style>
+          .h{
+              
+              widows: 100%;
+              height: 7px;
+              border: 0 none;
+              margin-right: auto;
+              margin-left: auto;
+              margin-top: 0px;
+              margin-bottom: 0px;
+              background-color:blue;
+          } 
+          h1{
+              
+              color: blue;
+              font-family: aller;
+              font-size: 45px;
+          }
+      </style>
+      
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+Update the NetView startup procedure, the CNMPROC (CNMSJ009) member in the SYS1.PROCLIB data set, as required for your environment. These changes do not involve CNMPSSI (CNMSJ010).
+</p>
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>Changing Symbolic Variables</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+The following symbolic variables are used for user-defined data sets:
+
+</p>
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>Variable
+    Default Value</b></p>
+<P style="font-size: 20px;font-style: normal;margin: inherit;">&Q1</P>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">NETVIEW.V6R3USER</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>&DOMAIN</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">CNM01</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>&SQ1</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">NETVIEW.V6R3M0</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">You can change these values as required for your environment.
+</p>
+
+<h1 style="color: black; font-size: 30px;font-style: normal;margin: inherit;">Specifying the Allocation for the NetView Internal Trace Table</h1>
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">The internal trace starts early during NetView initialization, as long as the TRSIZE value specified on the startup procedure is not 0. The trace starts with all options for the following reasons:
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	Documentation is available to diagnose a problem that might occur during NetView initialization.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	Trace options are not interpreted during NetView initialization until the CNMSTYLE statements are read. When the CNMSTYLE TRACE statements are interpreted, the options, size, and mode of the tracing are changed to reflect what is specified on those statements.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+You can specify the number of pages allocated for this initial NetView internal trace table. The default value is 4000 pages. Because the trace is allocated out of a data space, the maximum value that can be specified is 524286, the size of a data space. The syntax is
+</p>
+
+<img style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20152851.png">
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    If 0 is specified, no trace table is allocated, and the NetView internal trace does not start early during initialization. The CNMSTYLE trace options take effect regardless of whether the NetView internal trace starts early. Leave early tracing on unless it significantly degrades NetView performance.
+</p>
+
+
+<h4 style="font-size: 25px;font-style: normal;margin: inherit;">Specifying the Japanese Version</h4>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    If you are installing the Japanese version of the NetView program, uncomment the appropriate statements in CNMPROC and comment out the corresponding English statements. Refer to the comments in CNMPROC.</p>
+<h4 style="font-size: 25px;font-style: normal;margin: inherit;">Setting System Variables</h4>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">You can set several system variables in CNMPROC.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">The start procedure contains the specification of a two-character identifier NV2I. This value becomes a local system variable &NV2I, and is used to construct names that need to be unique to each NetView within an MVS image, a sysplex, or a network. If no value is specified for &NV2I, the value of NM is used.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+If you specify a value for &NV2I (xx), the NetView program reads CxxSTYLE in DSIPARM for initialization parameters. If this member is not found, the NetView program reads the CNMSTYLE member instead.
+
+</p>
+
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>Note:</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+1.	If you plan to have one NetView program for each z/OS system, consider using the value of the &SYSCLONE variable for the value of &NV2I.
+ 
+</p>
+
+<hr>
+
+<hr>
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+ 
+    2.	For more information, refer to the comments in CNMPROC (CNMSJ009).</p>
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>Setting the Dispatch Priority</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+The procedure to start the NetView applications contains the following parameter:
+</p>
+
+<img style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20153940.png">
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    Set the DPRTY parameter to the highest dispatching priority possible below the priority set for VTAM to get the best performance and to help prevent records from being overlaid.</p>
+
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>Modifying the Region Size, Buffer Size and Slot Size</b></p>
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">The following sample statements specify the region size, buffer size, and slot size:</p>
+
+
+<img style="width: 100%;height: 400px;" src="Screenshot 2024-01-24 154348.png">
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">The default region size provided with the NetView program might not be adequate for all environments. If you enable additional components in the NetView program, for example the SA tower in the CNMSTYLE member, or the size of your network is large, consider increasing the region size. For more information on calculating the region size, refer to the IBM Z NetView Tuning Guide.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+The buffer size parameter specifies the amount of storage allocated to the global buffer, the local buffer, and the router buffer. Each buffer is allocated the amount of storage specified by this parameter. The acceptable values are 8, 12, 16, 20, and 24 KB.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+The slot size parameter refers to a fixed portion of a buffer that is used to contain incoming error records. As these error records increase in number, you can increase the size of the buffer. Acceptable values are 200, 250, or 300 bytes. If the slot size is too low, the SVC76 mapper truncates error records of greater length than the slot size. If the slot size is too great, the number of slots available is reduced and records can be lost unless you also define a larger buffer size.
+
+</p>
+
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><B>Defining the REXX Runtime Library to STEPLIB</B></p>
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">Essential NetView functions use REXX runtime programs that are compiled with the ALTERNATE option. If you access the REXX/370 runtime library from the NetView program, these REXX runtime programs run in compiled mode. Otherwise, the REXX alternate library is used and the REXX programs run in interpreted mode. If the REXX/370 runtime library or REXX alternate library is not accessible from the link pack area (PLPA), modify the NetView start procedure to access one of these libraries:
+</p>
+<p style="font-size: 25px;font-style: normal;margin: inherit;">
+•	To use the REXX/370 runtime library, ensure that the following statement is uncommented:
+</p>
+
+
+<img style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20154834.png">
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	To use the REXX alternate library, ensure that the following statement is uncommented:</p>
+
+<img  style="width: 100%;height: 100px;"src="Screenshot%202024-01-24%20155036.png">
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">For more information about which REXX library to use, refer to the comments in the CNMPROC start procedure.</p>
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>Defining Command Lists</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+The NetView command lists are defined in the following statements:
+ 
+</p>
+
+<img style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20155324.png">
+
+<hr>
+
+<hr>
+<img style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20155423.png">
+<p style="font-size: 20px;font-style: normal;margin: inherit;">If you write additional command lists, add them to the following data set:</p>
+
+<img  style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20155558.png">
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    Each command list is a separate member of the command list data set. The name of the command list is the data set member name.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+You can have several data sets for different types of command lists. Add the names of any data sets that you have defined for your command lists before those of the NetView command lists, for example:
+
+</p>
+
+
+<img style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20155744.png">
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">If you allocate your command list library with secondary space, you might have to recycle the NetView program to update the library.</p>
+
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><B>Specifying Definition Members and Sense Codes</B></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+The NetView definition data set members and sense codes are defined in the following statements:
+</p>
+
+
+<img style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20160034.png">
+<p style="font-size: 20px;font-style: normal;margin: inherit;">If you have other definition and sense code libraries, concatenate them after this statement.</p>
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>Defining Data Sets to the NetView Program</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">The NetView program uses data sets to read information and write output while running various functions. The following list identifies some of these data sets and how they are used by the NetView program.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	If you are installing the Japanese version of the NetView program, change the STEPLIB statement as follows:
+
+</p>
+
+<img style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20160311.png">
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	The following statements define the data sets that contain VTAM definitions:</p>
+<img style="width: 100%;height: 100px;"  src="Screenshot%202024-01-24%20160505.png">
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	The following statements define the data sets that contain your NetView operator profiles:</p>
+
+<img  style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20160757.png">
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	The following statements define the English online help panels:</p>
+
+<img style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20160959.png">
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	The following statement defines the English online help panels for the hardware monitor:</p>
+<img style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20161223.png">
+<p style="font-size: 20px;font-style: normal;margin: inherit;">For online help panels in the Japanese language, replace the BNJPLN1 statement with the following statement:</p>
+<img style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20161742.png">
+
+<hr>
+
+<hr>
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	The following statement defines the data set used for the hardware monitor color map:</p>
+<img style="width: 100%;height: 100px;"
+ src="Screenshot%202024-01-24%20162009.png">
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	Uncomment the following statement for online help panels in Japanese:
+</p>
+<img style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20162240.png">
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;"> 
+•	The following statement defines the data set used for user-defined message members and translation members:
+</p>
+<img style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20162419.png">
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	The following statements define the NetView non-secured data sets:
+</p>
+<img style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20162613.png">
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	The following statement defines the data set used for storing NetView reports, listings, and other output:</p>
+
+<img  style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20162854.png">
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	The following statement defines the data set containing members to be used for testing the automation table:
+</p>
+
+<img style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20163039.png">
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	The following statement defines the data set used for storing the report produced from running tests of the automation table:</p>
+<img style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20163200.png">
+
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>Running with Information/Management</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+If you use Information/Management to log problems from the hardware monitor, the NetView program must have access to the Information/Management load library and session members. The NetView program can accomplish this if you install Information/Management in a library accessible to the NetView program, such as NETVIEW.V6R3M0.CNMLINK. If you did not install into CNMLINK, concatenate the Information/Management libraries into the NetView STEPLIB DD statement. Information/Management libraries must be APF-authorized.
+</p>
+<b style="font-size: 20px;font-style: normal;margin: inherit;"><u>If you want information about...	Refer to... Information/Management library</u></b>
+ 
+<p style="font-size: 20px;font-style: normal;margin: inherit;">Installing Information/Management with the NetView program</p>
+
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>Enabling Network Logs to Print Automatically</b></p>
+ 
+<p style="font-size: 20px;font-style: normal;margin: inherit;">The CNMPROC (CNMSJ009) procedure includes statements that are required to print the network logs automatically whenever the start procedure ends. Statements are provided for both the primary and secondary logs.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    To enable automatic printing of the network primary and secondary logs, uncomment the statements in <u>Figure 2 on page 45 and Figure 3 on page 45.</u>
+ 
+</p>
+
+<hr>
+
+<hr>
+
+<img style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20163837.png">
+<p style="font-size: 15px;font-style: normal;margin: inherit;"><i>Figure 2. Primary Network Log Print Step</i></p>
+
+<img style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20164047.png">
+<p style="font-size: 15px;font-style: normal;margin: inherit;"><i>Figure 3. Secondary Network Log Print Step</i></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+For more information, see IBM Z NetView Installation: Configuring Additional Components.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>Omitting Some of the Logs from Automatic Printing</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+The sample start procedure, CNMPROC (CNMSJ009), includes JCL steps that pertain to the automatic printing of logs when the start procedure ends. Each step is identified by a comment explaining its function. If you want automatic printing of some of the logs but not all of them, alter only those statements about the logs you want to print. Read the comments to determine which steps pertain to the logs you want. The first step ensures that VSAM databases are properly closed before printing. Activate the statements in the first step, then activate the statements in any other steps that pertain to logs you want to print automatically.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>
+    Defining TCP/IP to the NetView Program</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+The NetView program provides services that rely on TCP/IP to communicate with remote applications. To communicate with TCP/IP, each of these services use a program function library, referred to as the TCP/IP socket library. This makes the NetView application a TCP/IP socket application.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+Any TCP/IP socket application must reference TCP/IP configuration data. The method of accessing this data is defined by z/OS Communications Server.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+An example SYSTCPD DD statement is provided in the NetView startup procedure to identify the location of TCP/IP configuration data. A SYSTCPD statement is not required for the NetView program, but any TCP/IP socket application must be able to locate TCP/IP configuration data.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+You also need access to z/OS TCP/IP data sets from the NetView start procedure. If the z/OS TCP/IP data sets are not contained in the LNKLST concatenation, add the following z/OS TCP/IP data set (which must be APF-authorized) to the STEPLIB DD concatenation:
+</p>
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><i>SEZALOAD</i></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">Executable load modules for concatenation to LINKLIB</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    To optimize performance, make these data sets available from the LNKLST concatenation.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+Ensure that the user ID that is associated with the NetView started task or job is defined to your SAF product with an OMVS segment. This is required so that the NetView program can use z/OS UNIX System Services (USS) functions, which include TCP/IP functions.
+</p>
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>Usage notes:</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+1.	For each of the TCP/IP services that is provided by the NetView program, the stack affinity is specified in the CNMSTYLE member using the TCPname statement. Using this name, NetView sets the stack affinity by specifying it on an INITAPI socket call.
+</p> 
+
+<hr>
+
+<hr>
+<p>2.	Some NetView applications that are not a part of the NetView address space rely on TCP/IP to communicate with remote applications. Some of these applications use the z/OS UNIX socket library. These applications are therefore z/OS UNIX socket applications. Information on how these applications reference TCP/IP configuration data is discussed in the books describing those applications. Examples of z/OS UNIX socket applications are the Event/Automation Service and the UNIX command server.
+</p>
+<u><b>If you want information about...	Refer to...</b></u>
+ <p>
+TCP/IP socket applications, SYSTCPD DD statement    z/OS Communications Server IP Configuration Guide
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>Running the NetView Application as a Job</b></p>
+ 
+ <p style="font-size: 20px;font-style: normal;margin: inherit;">
+To run the NetView application as a job, remove the asterisk (*) from the first two lines and the final two lines of the CNMSJ009 job. Also, update the JOB statement to reflect your installation. The first two lines are shown here:
+</p>
+
+<img  style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20165411.png">
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">The final two lines are shown here:</p>
+
+<img style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20165610.png">
+
+<h1 style="color: bule;font-size: 35px;">Updating the DSITBL01 member</h1>	
+<hr class="h">
+      <style>
+          .h{
+              
+              widows: 100%;
+              height: 7px;
+              border: 0 none;
+              margin-right: auto;
+              margin-left: auto;
+              margin-top: 0px;
+              margin-bottom: 0px;
+              background-color:blue;
+          } 
+          h1{
+              
+              color: blue;
+              font-family: aller;
+              font-size: 45px;
+          }
+      </style>
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+The DSITBL01 member in the DSIPARM data set is the default NetView automation table. The DSITBL01 automation table is required by the NetView program and provides basic automation statements to respond to messages and management services units (MSUs). If the DSITBL01 automation table is not activated during NetView initialization, the DWO093W warning message is issued by the NetView program.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+You can make modifications to the DSITBL01 automation table. Make sure that you do not disable vital functions of the NetView program. You can add your own automation table by using the AUTOCMD statement in the CNMSTYLE member. Place your automation table before the DSITBL01 automation table and code CONTINUE(YES) on any local customization to make sure that messages flow to the DSITBL01 automation table.
+</p>
+<h1 style="font-size: 35px;color: blue;">Updating the CNMSTYLE Member</h1>
+<hr class="h">
+      <style>
+          .h{
+              
+              widows: 100%;
+              height: 7px;
+              border: 0 none;
+              margin-right: auto;
+              margin-left: auto;
+              margin-top: 0px;
+              margin-bottom: 0px;
+              background-color:blue;
+          } 
+          h1{
+              
+              color: blue;
+              font-family: aller;
+              font-size: 45px;
+          }
+      </style>
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    The CNMSTYLE member in the DSIPARM data set is read by the NetView program at initialization and controls many customizable properties of the NetView program. The sample CNMSTYLE member contains descriptive comments about the types of statements that are included in the member. Read the comments and review the default values. For more information about CNMSTYLE statements, see IBM Z NetView Administration Reference.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+To change a CNMSTYLE statement, copy the statement to either the CNMSTUSR or CxxSTGEN member and then make any necessary updates there.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    Update the CNMSTYLE member as required for your environment:</p>
+•	<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>“Changing the CNMSTYLE Member Name” on page 47</u></p>
+•	<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>“Using %INCLUDE Members” on page 47</u></p>
+ 
+
+
+<hr>
+
+<hr>
+
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>•	“Using System Symbols” on page 48</u></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>•	“Customizing the CNMSTYLE Member” on page 49</u></p>
+ <p style="font-size: 20px;font-style: normal;margin: inherit;"><u>•	“Activating NetView Components” on page 49</u></p>
+ <p style="font-size: 20px;font-style: normal;margin: inherit;"><u>•	“Creating Tower Statements” on page 52</u></p>
+ <p style="font-size: 20px;font-style: normal;margin: inherit;"><u>•	“Defining Variables” on page 53</u></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>•	“Configuring Allocation Parameters for Canzlog Archive Data Sets” on page 54</u></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>•	“Setting up Security” on page 55</u></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>•	“Assigning Unique EMCS Console Names” on page 55</u></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>•	“Disabling XCF Group Participation” on page 56</u></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>	“Specifying Commands to Run Automatically When the NetView Program Is Started” on page 56</u></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>•	“Starting the NetView Subsystem Interface” on page 57</u></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>•	“Including Japanese Support” on page 57</u></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>•	“CNMSTYLE Processing” on page 58</u></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>•	“Using the Report Generator” on page 60</u></p>
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>Changing the CNMSTYLE Member Name</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    The member name for CNMSTYLE is controlled by the string &NV2I in the NetView start procedure and is resolved during fetch processing. It becomes the two characters specified for NV2I on the start command. If no value is specified, the default value is NM. If you specify xx as a value for &NV2I, then the NetView program reads CxxSTYLE in DSIPARM for initialization parameters. If that member cannot be found, the NetView program reads CNMSTYLE instead. The included member CxxSTGEN is also resolved using the value of &NV2I for xx. For more information on NV2I, see <u>“Configuring Allocation Parameters for Canzlog Archive Data Sets” on page 54.</u></p>
+
+<p  style="font-size: 20px;font-style: normal;margin: inherit;"><b>Using %INCLUDE Members</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">The following members are included when the CNMSTYLE member initializes:</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>Member</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">Usage</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">CNMSTACT</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">Includes the CNMSTAAL member if the IBM Z NetView for Continuous Availability product is installed. The CNMSTACT member is used for the GDPS Continuous Availability solution.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>CNMSTPWD</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">If needed, you can use this member to include VPD, VSAM, and ACB passwords. You can use the READSEC command to protect the CNMSTPWD member from being displayed by the BROWSE command.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>CNMSTNXT</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">Includes modifiable CNMSTYLE statements by release. The CNMSTNXT member is commented out in the CNMSTYLE member. It is provided for documentation purposes only.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>CNMSTASK</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">Task statements that are provided with the NetView program. Do not modify this member. Instead, include any task statements that you want to include directly in the CNMSTUSR or CxxSTGEN member. The task statements in the CNMSTUSR and CxxSTGEN member override those that are provided in the CNMSTASK member.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>CNMSTIDS</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">Includes Intrusion Detection Services (IDS) statements. Review this member if you are enabling IDS support.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>CNMSTTWR</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">Includes statements from non-NetView towers. Do not edit this member unless instructed by documentation for a tower you are installing.</p>
+ 
+<hr>
+
+<hr>
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>CNMSTWBM</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">Includes webmenu statements.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>CNMSTUSR</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">You can include global (enterprise) definition statements that override statements in the CNMSTYLE member. Use this member to customize the CNMSTYLE member. You can use Data REXX logic.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>Note:</b> You can also use the %INCLUDE statement in this member to include other members of your choosing.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>C&NV2I.STGEN</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">You can include system-specific definition statements in this member, including Data REXX logic.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>Note:</b> You can also use the %INCLUDE statement in this member to include other members of your choosing.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>Using System Symbols</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">The NetView program uses MVS system symbols to store various names including the RODM name, TCP/IP stack name, and the network ID. You can initially set these system symbols in the IEASYMxx member in the SYS1.PARMLIB data set:</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	&CNMRODM - RODM name</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	&CNMTCPN - TCP/IP stack name</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	&CNMNETID - network ID</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">You can use these MVS system symbols to set values in the CNMSTYLE member. During CNMSTYLE processing, NetView symbols with the same name are created and can subsequently be used by the NetView program where symbolic values are allowed. Table 9 on page 48 lists the CNMSTYLE statements that set the values for the given NetView symbol. If you set any of these values in the CNMSTYLE member, the CNMSTYLE value becomes the symbol value for that instance of the NetView program.
+</p>
+<img  style="width: 100%;height: 700px;" src="Screenshot%202024-01-24%20172318.png">
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">The &DOMAIN NetView symbol stores the NetView domain name. The &NV2I NetView symbol is set in the CNMPROC (CNMSJ009) procedure and has a default value of NM if it is not specified.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+If you specify the NetView domain ID and password in the CNMPROC (CNMSJ009) procedure, the DOMAIN statement in the CNMSTYLE member and the ACBpassword statement in the CNMSTPWD member are not used. They are ignored unless the parameters that are passed by the CNMPROC procedure are null. If the domain password is not specified in the CNMPROC (CNMSJ009) procedure or in the CNMSTYLE member, the domain name becomes the password.
+ 
+</p>
+
+
+<hr>
+
+<hr>
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">To find the value of a system symbol or NetView symbol while the NetView program is running, use the SUBSYM REXX function or the SUBSYM pipe stage. If you set a system symbol for the network ID, it must be the same as the value returned by VTAM when the NetView program opens its ACB. The NetView program uses the &CNMTCPN value for certain functions prior to communication with VTAM.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+An MVS system symbol can also be specified using MVS commands. In this case, the value is substituted before the command is run
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    <u>If you want information about...	Refer to...</u>
+Defining system symbols	MVS Initialization and Tuning Reference
+
+</p>
+
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>Customizing the CNMSTYLE Member</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+Customize the CNMSTYLE member by making global (enterprise) changes to the CNMSTUSR member, and then copying the modified CNMSTUSR member to each NetView system.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+You can make system-specific changes to the CxxSTGEN member that is included in the CNMSTYLE member using the %INCLUDE statement (where xx is the value of &NV2I, which is initially set to NM). Code all override statements for the CNMSTYLE and CNMSTUSR members in this member. Duplicate statements found in the CxxSTGEN member override earlier statements in the CNMSTYLE and CNMSTUSR members. You can specify the value of NV2I in the NetView start procedure.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+You can use Data REXX in the members that are included in the CNMSTYLE member using the %INCLUDE statement. Data REXX is not supported in the CNMSTYLE member. Instead, you can define tower and subtower conditions in the CNMSTUSR or CxxSTGEN members to control the statements in the CNMSTYLE member.
+</p>
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>Note:</b> If you make changes to the included members while the NetView program is running, the changes become effective when you recycle the NetView program. For certain types of changes, you can use the RESTYLE command to activate these changes without recycling the NetView program. For more information on the types of changes that can be activated using the RESTYLE command, see the NetView online help or IBM Z NetView Command Reference Volume 2 (O-Z).</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>If you want information about...	Refer to...</u></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">RESTYLE command	NetView online help or IBM Z NetView Command Reference Volume 2 (O-Z)
+
+</p>
+
+<p><b>Activating NetView Components</b></p>
+<p>NetView components can be activated with TOWER statements. Tower statements are examined earlier in the initialization process than most other variables (for example, common global variables). This is useful, for example, to conditionally control the initialization process.</p>
+<p>
+    This is an example of the default TOWER statement:</p>
+
+<img  style="width: 100%;height: 700px;" src="Screenshot%202024-01-24%20173228.png">
+<p><b>Usage notes:</b></p>
+<p>1.	A tower is enabled if it is not preceded by an asterisk. To enable a tower, remove the asterisk (*) before the tower name.</p>
+<p>
+2.	To disable a tower, add a MODIFY.TOWER statement with a minus sign. For example:
+</p>
+<img  style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20174021.png">
+<p style="font-size: 20px;font-style: normal;margin: inherit;">3.	If multiple TOWER statements exist, the last TOWER statement encountered is processed. It is important to remember that modified TOWER statements are not recognized until the NetView program is restarted.</p>
+
+<hr>
+
+<hr>
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">You can use modify statements (MODIFY.TOWER) to enable specific components within a tower. The following are some examples of statements enabling or disabling subtowers:</p>
+<img style="width: 100%;height: 700px;" src="Screenshot%202024-01-24%20174248.png">
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">Note that the "sortkey" values indicate the order of processing and must all be different. A plus sign indicates an item is being enabled and a minus sign indicates an item is being disabled. For any attempt to enable or disable a subtower to be effective, the tower must have previously been enabled.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+Review the subtower statements that are associated with the towers that are supplied with the NetView product that you enable. To enable a subtower, create a MODIFY.TOWER statement in the CNMSTUSR or CxxSTGEN member. To enable or disable any tower or subtower, you must recycle the NetView program, so review these statements carefully. If you plan on implementing any of the tower and subtower components, consider enabling the functions during this step in the installation process.
+</p >
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    <u>Table 10 on page 50</u> lists the towers and subtowers that are provided with the NetView program:
+
+</p>
+<img style="width: 100%;height: 100%;" src="Screenshot%202024-01-24%20174529.png">
+
+<hr>
+
+<hr>
+
+<img style="width: 100%;height: 100%;" src="Screenshot%202024-01-24%20174823.png">
+
+<hr>
+
+<hr>
+
+<img style="width: 100%;height: 100%;" src="Screenshot%202024-01-24%20175104.png">
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>If you want information about...	Refer to...</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>AON, hardware monitor, session monitor	IBM Z NetView Installation: Configuring Additional
+    Components</u></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>MultiSystem Manager subtowers	IBM Z NetView Installation: Configuring Graphical
+    Components</u></p>
+ 
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>Z NetView Enterprise Management Agent tower and subtowers</u></p>
+
+
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>Creating Tower Statements</b></p>
+ 
+ 
+<p style="font-size: 20px;font-style: normal;margin: inherit;">You can use the TOWER statement to enable or disable towers that you create. You can use TOWER- qualified statements to define subtowers, for example:</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	TOWER.twrname = subtwr
+ 
+</p>
+
+<hr>
+
+<hr>
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	TOWER.twrname.subtwr = subsubtwr</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">This is an <b>example of TOWER statements that</b> define a tower named <i>PROBMGMT</i> and a subtower named
+HighPriProbs:
+</p>
+
+<img style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20175753.png">
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>Note:</b> In this and other examples, the names PROBMGMT, PROBTASK, and HighPriProbs are used as examples; you can use any 1-16 character name for a tower statement.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+In the example that follows, the name of an autotask is defined for a user-written problem management application and the name of an additional autotask is defined for a user-written application. The user written application is used to analyze high priority problems that are handled by the problem management application:
+</p>
+
+<img style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20180108.png">
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><i>The PROBTASK autotask</i> is only defined when the PROBMGMT tower is enabled. The HPRITASK autotask is only defined when the HighPriProbs subtower is enabled in the TOWER.PROBMGMT statement.
+
+Additional information about the function.autotask statement can be found in IBM Z NetView Administration Reference.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+You can add Data REXX logic to the CNMSTUSR or CxxSTGEN member to conditionally process definition statements based on whether a particular tower is enabled. This is an example:
+</p>
+
+<img style="width: 100%;height: 100px;"  src="Screenshot%202024-01-24%20180425.png">
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">If you use Data REXX logic, ensure that the %> characters begin in column one. Lines beginning with a blank are considered continuation statements from the previous line. Also, Data REXX files must begin with either a /* %DATA */ or /* %LOGIC */ statement.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    <b>If you want information about...	Refer to...</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">Using Data REXX	IBM Z NetView Programming: REXX and the NetView Command List Language
+
+</p>
+
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>Defining Variables</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    Use STYLEVAR to define variables that can be used anywhere within the CNMSTYLE member (except for the command phase, described in “Command Phase” on page 59). You can use these variables to simplify the process of entering repetitious data. The STYLEVAR phase is described in “STYLEVAR Phase” <u>on page 59.</u>
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>Usage notes:</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">1.	System variable names are not valid names for STYLEVAR variable names.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">2.	STYLEVAR variable values cannot contain another STYLEVAR variable.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">3.	If you are using a STYLEVAR variable in the CNMSTYLE member, the construction &&varname is not supported, where varname is the STYLEVAR variable.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u><b>If you want information about...	Refer to...</b></u></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">STYLEVAR statement	Comments in the CNMSTYLE member and IBM Z NetView Administration Reference
+ 
+</p>
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>Configuring Allocation Parameters for Canzlog Archive Data Sets</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+The Canzlog archiving function preserves message data that is stored in the Canzlog log. When enabled, the Canzlog archiving function allocates sequential data sets after NetView initialization. The data set allocation specifications are controlled by the ARCHIVE statements in the CNMSTYLE member. Because large amounts of data can be archived by the NetView program, make sure that the allocation parameters are configured correctly for your environment.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+To enable the Canzlog archiving function, add an ARCHIVE.HLQ CNMSTYLE statement with a valid high- level qualifier to your CNMSTUSR or CxxSTGEN member, for example:
+</p>
+
+<img style="width: 100%;height: 100px;"   src="Screenshot%202024-01-24%20181602.png">
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">If you are not using the default NetView data set naming convention or want to use a different high-level qualifier for the Canzlog archive data sets, replace the value NETVIEW with the high-level qualifier that you want to use.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    The Canzlog archiving function allocates several different types of sequential data sets:</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	Message data sets are allocated to store archived message data from the Canzlog log.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	Index data sets are allocated to reference the message data sets as they are created.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	A primary index data set is allocated to reference the index data sets as they are created.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">The allocation parameters for the message data sets are specified by the ARCHIVE.MESSAGE CNMSTYLE statements. The allocation parameters for the index data sets and the primary index data set are specified by the ARCHIVE.INDEX CNMSTYLE statements.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+Default allocation parameters are provided by the NetView program for allocating non-storage management subsystem (non-SMS) sequential data sets that are written to a 3390 DASD device. Depending on your environment, you might want to customize the allocation specifications. See Table 11 on page 54 for a list of statements that contain allocation parameters for the archive Canzlog data sets.
+
+</p>
+
+<img  style="width: 100%;height: 100%;" src="Screenshot%202024-01-24%20181925.png">
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">Because most production systems generate large amounts of message data, you might want to use dedicated DASD storage for managing your Canzlog log archive data sets. Your data management set-up
+ 
+</p>
+
+<hr>
+
+<hr>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">must allow the NetView program to dynamically allocate and catalog the sequential data sets that are allocated by the Canzlog archiving function.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+Only one NetView program on a given z/OS system can archive Canzlog data regardless of how many NetView programs are configured with archiving enabled. To disable Canzlog archiving for a particular NetView program, set the ARCHIVE.WRITE statement to NO.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+You can change the value for any of the archive allocation parameters after the NetView program initializes by modifying the ARCHIVE statements and issuing the RESTYLE ARCHIVE command. When you issue the RESTYLE command, there is no loss of data.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b><u>
+    If you want information about...	Refer to...</b></b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>ARCHIVE statements	IBM Z NetView Administration Reference</u></p>
+ 
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>Defining Canzlog archive data sets	IBM Z NetView Installation: Configuring Additional
+    Components</u></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>DASD requirements for Canzlog archiving	IBM Z NetView Tuning Guide</u>
+
+</p>
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>Setting up Security</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+You can use the SECOPTS statement to specify levels of security:
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	Operator security</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	Command authority</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	Span of control authority</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>If you want information about...	Refer to...</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>Security options	IBM Z NetView Security Reference</u></p>
+ 
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>SECOPTS keywords	IBM Z NetView Administration Reference
+
+    </u></p>
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>Assigning Unique EMCS Console Names</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+EMCS consoles are used to send commands from the NetView program to the MVS operating system and to receive messages from MVS. The console name must be unique for each MVS or each sysplex. To avoid console name conflicts, you can use the NetView program to assign a permanent, unique console for each operator by using the following methods:
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	Using the ConsMask statement in the CNMSTYLE member. This is the preferred method.
+    Choose a combination of letters to generate unique names in your environment. When an MVS command, or a GETCONID command without the CONSOLE keyword, is issued before any SETCONID command, then NetView chooses a console name by substituting the letters in the mask from the environment at that time.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	Using the SETCONID command.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	Defining the CONSNAME attribute in the operator profile.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+One way to create unique consoles is to use the NetView support for the MVS cloning function. The &SYSCLONE system symbolic variable can be used to construct a unique CONSNAME value for each operator on each system within a sysplex.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	Using the GETCONID command with the CONSOLE keyword.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+If you do not use the ConsMask statement or the CONSNAME or GETCONID commands, NetView automatically assigns a default console that is the same as the operator task ID.
+    </p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+The console names you specify in CONSOLxx are not available for use as EMCS console names. Therefore, if you specify any console names in CONSOLxx, ensure that they are different from your NetView operator IDs so that they do not conflict with the default EMCS console names.
+ 
+</p>
+
+<hr>
+
+<hr>
+
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>Use the RELCONID command to release MVS consoles that were previously obtained using an MVS or a GETCONID command.</p>
+    <p style="font-size: 20px;font-style: normal;margin: inherit;"><b><u>
+        If you want information about...	Refer to...</u></b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>
+Updating CNMSTYLE statements	“Updating the CNMSTYLE Member” on page 46 ConsMask, MVSPARM, CONSNAME	IBM Z NetView Administration Reference
+    </u></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>GETCONID, MVS, RELCONID, and SETCONID
+commands
+    </u></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>
+NetView online help or IBM Z NetView Command Reference Volume 1 (A-N)
+    </u></p>
+
+ 
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>z/OS cloning function, system symbolic variables	z/OS library</u>
+
+</p>
+
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>Disabling XCF Group Participation</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+To support discovery manager, by default, the NetView program participates in an XCF group that enables communication with other NetView programs in your sysplex environment. If you do not want the NetView program to participate in this XCF group, you can disable this function by adding the following statement in the CNMSTUSR or CxxSTGEN member:
+</p>
+
+<img  style="width: 100%;height: 100px;"src="Screenshot%202024-01-24%20192529.png">
+
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">XCF group participation can be enabled after NetView initialization by changing the XCF.RANK value and issuing the RESTYLE XCF command.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b >
+    Usage note:</b> If you are running the GDPS Continuous Availability solution, do not disable XCF group participation. For information on setting the XCF rank for the solution, see IBM Z NetView for Continuous Availability Configuring and Using the GDPS Continuous Availability Solution.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u><b>
+    If you want information about...	Refer to...</b></u></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>XCF.RANK statement	IBM Z NetView Administration Reference</u></p>
+ 
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>Discovery manager	IBM Z NetView IP Management</u></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>XCF Services	IBM Z NetView IP Management</u>
+
+</p>
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>Specifying Commands to Run Automatically When the NetView Program Is Started</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+To define a command or a command list to run automatically when the NetView program is started, use the auxInitCmd statement in CNMSTUSR or CxxSTGEN. You can specify any number of commands or command lists to be run. The EBCDIC value following the auxInitCmd keyword determines the order the commands are run.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+An example follows:
+</p>
+
+<img style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20193248.png">
+<p>In this case, the MSG SYSOP command (A) runs before the LISTVAR command (AC).</p>
+<p>
+    <b>Note:</b> These AuxInitCmd commands run before any commands at any autotask. All commands for autotasks, including both task initial command lists and commands sent by EXCMD, are queued and held up. They run only after all AuxInitCmds have completed. Messages are also queued; they are not submitted to automation nor logged until all AuxInitCmds have completed.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u><b>
+    If you want information about...	Refer to...</b></u></p>
+ 
+<p style="font-size: 20px;font-style: normal;margin: inherit;">Creating a command list to run at NetView initialization
+ IBM Z NetView Programming: REXX and the NetView Command List Language
+ 
+
+</p>
+
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>Starting the NetView Subsystem Interface</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">You can start the NetView Subsystem Interface (SSI) by using the SSI.ProcString statement in CNMSTUSR or CxxSTGEN:
+</p>
+
+<img style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20193649.png">
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">Specify the procedure name (for example, CNMPSSI). The NetView program provides a value for the PPIOPT parameter. You can also specify additional start parameters (such as SUB=MSTR) that are required for your installation.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    <b>Note:</b> Do not specify the PPIOPT parameter on the SSI.ProcString statement because the NetView program adds this parameter during processing. To update this value, use the SSI.PPI statement.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+If you specify *NONE* for SSI.ProcString statement, the CNMCSSIR task does not start the SSI procedure. This is the default.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b><u>If you want information about...	Refer to...</u></b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>Starting the SSI using CNMPSSI	“Modifying the NetView Subsystem Interface Procedure” on page 39</u></p>
+ 
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>SSI CNMSTYLE statements	Comments in the CNMSTYLE member and IBM Z NetView Administration Reference
+
+    </u></p>
+
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>Specifying the Subsystem Command Designator</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+To specify the NetView subsystem command designator, use the MVSPARM.Cmd.Designator statement in the CNMSTYLE member. For more information about the MVSPARM.Cmd.Designator statement, see the IBM Z NetView Administration Reference.
+</p>
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>
+    Including Japanese Support</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+The NetView program supports EBCDIC or Kanji character sets. All NetView workstations in a domain must support the character set that you decide to use. Multilingual support is not available. Japanese and English domains can coexist. The NetView program sends messages in English between these domains. To include the Kanji character set, copy the transTbl statement from CNMSTYLE to CNMSTUSR or CxxSTGEN, and specify DSIKANJI.
+</p>
+
+<img style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20194426.png">
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">To include Japanese translations of messages, copy the following statement from CNMSTYLE to CNMSTUSR or CxxSTGEN, and remove the asterisk from the beginning of the statement:
+ 
+</p>
+<img  style="width: 100%;height: 100px;" src="Screenshot%202024-01-24%20194604.png">
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">The CNMTRMSG member contains the Japanese message translations. It is located in the NETVIEW.V6R3M0.SDSIMSG1 data set in the DSIMSG DD concatenation in the NetView procedure (CNMPROC). Edit the CNMTRMSG member and uncomment the %INCLUDE for CNMMSJPN. To preserve the SMP/E-installed copy of the CNMTRMSG member, allocate a user SDSIMSG1 data set, copy the CNMTRMSG member into this user data set, and then edit the CNMTRMSG member in the user data set. To make sure that user data set changes are in effect, concatenate the user data set ahead of the NETVIEW.V6R3M0.SDSIMSG1 data set.</p>
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b><u>
+    If you want information about...	Refer to...</u></b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>Enabling Japanese support	IBM Z NetView Installation: Configuring Additional Components</u></p>
+ 
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><u>CNMSTYLE statements	Comments in the CNMSTYLE member and IBM Z NetView Administration Reference</u>
+ 
+</p>
+<img style="width: 100%;height: 100%;" src="Screenshot%202024-01-24%20194914.png">
+
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    The system variables can then be used throughout the NetView program.</p>
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>Command Phase</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+During the command phase, the CNMCMD command definitions are evaluated. The values of tower, domain, type, and other variables set in the early initialization phase control how these members are read.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+Member DSISCHED is read and other initialization members not associated with a CNMSTYLE statement or optional task are also read.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+If you coded a command definition of CNMSTRLY in DISPARM member CNMCMD, the defined REXX procedure is called. Do not call any long running commands from this procedure, except PIPE. Do not call the following commands:
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	AUTOTASK</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	AUTOTBL</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	REFRESH</p>
+ <p style="font-size: 20px;font-style: normal;margin: inherit;">•	START</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+You can use MVS commands. Do not use POI VTAM commands. If a problem occurs with this procedure, the NetView program might not initialize. Also, if you preset variables designed to be set by CNMSTYLE processing, the NetView program might not initialize properly.
+</p>
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>STYLEVAR Phase</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+During the STYLEVAR phase, the CNMSTYLE member specifications are reevaluated. All &xxx. stylevar variables that are used in CNMSTYLE statements are replaced with the value specified in the corresponding stylevar.xxx entry.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;"><b>Common Phase</b>
+    </p>
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">During the common phase, the CNMSTYLE member specifications are re-evaluated. Because of possible changes in the value of tower, domain, type, and other variables, different statements might be included by Data REXX or %INCLUDE processing.
+Note: Data REXX can be used only in the members that are included in the CNMSTYLE member using the
+%INCLUDE statement. Do not use Data REXX in the main CNMSTYLE member (CxxSTYLE).
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+Because tower statements have already been evaluated, they are used when reading the CNMSTYLE member for this phase. If a CNMSTYLE statement is preceded by a tower name in parentheses, it is included during initialization, if the tower is active. Otherwise, the statement is ignored. Do not use variables or other substitutions within these parentheses.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+The CNMSTYLE statements identified by the values in variable earlyCommon (in procedure CNMESTYL) are processed. For more information about the variable earlyCommon and on which CNMSTYLE statements are processed, refer to the earlyCommon in procedure CNMESTYL.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+Common global variables are set. This includes interpretation of function.autotask.xxx statements.
+</p>
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>Primary Task Phase</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+The CNMSTYLE member is read again. Because of variables being set during the common phase, different CNMSTYLE statements might be included. All CNMSTYLE statements that were not processed previously are now processed. The following actions then take place:
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	Optional tasks are started beginning with netlog (DSILOG).
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	NetView tracing is restarted if options different from the default values are specified in the CNMSTYLE member.
+ 
+
+
+</p>
+
+<hr>
+
+<hr>
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	Autotasks are started. However, command and message processing is suspended in these tasks until NetView initialization is complete.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	If VTAM is active, the NetView ACB is opened. When the NetView ACB is opened successfully, operators can log on.
+After all other statements are processed, auxInitCmd statements are called. You can use auxInitCmd statements to add your own processing to NetView initialization.
+</p >
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+After the last auxInitCmd command returns control, command and message processing is enabled in autotasks and operator station tasks. Initialization is complete.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    <b>Note:</b> Some activities related to initialization can run for an extended time (for example, population of the RODM database and resolution of IP domain names).
+</p>
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>
+    Using the Report Generator</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+You can use the CNMSTYLE report generator to analyze the CNMSTYLE member. You can use the report that is created to take the following actions:
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	List the %INCLUDE structure.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	Analyze multiple occurrences of statements within the CNMSTYLE member. Use this to determine which value is used during NetView initialization. For statements that are listed multiple times in the report, the last statement that is listed is the one used for initialization.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	List the CNMSTYLE towers that are enabled.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	Analyze initialization statements for a particular function.
+</p>
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>Running the report</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+To run the CNMSTYLE report generator, use the CNMSJCRG sample in the NETVIEW.V6R3USER.INSTALL data set. This INSTALL data set was created during installation by the CNMSJBUP sample job. The CNMSJCRG sample is a job that runs outside of the NetView address space and runs the REXX program CNMECRG under the TSO terminal monitor program.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+The CNMSJCRG sample requires the following data sets:
+</p>
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>STEPLIB</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">The NetView CNMLINK data set from the current release, NETVIEW.V6R3M0.CNMLINK.</p>
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>SYSEXEC</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    The concatenated data set list of the NetView CNMCLST data sets from the current release.</p>
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>DSIPARM</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+The concatenated data set list containing current release versions of the CNMSTYLE member. Ensure that the data set concatenation order is the same as that specified in the NetView start procedure CNMPROC.
+</p>
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>
+    CNMPNL1</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">The NetView CNMPNL1 data set from the current release, NETVIEW.V6R3M0.CNMPNL1.</p>
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>
+    DSIWRIT</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+The output partition data set to which the generated report member is written. The output of the report generator is written as a member of a partition data set. If you use the NetView default naming convention, the data set name is NETVIEW.V6R3USER.CNM01.DSILIST.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+The CNMSTYLE report is written to member CNMCRG in the DSIWRIT data set. If member CNMCRG already exists, a backup copy of the existing CNMCRG member is created and named CNMCRGBK. If member CNMCRGBK exists, it is overwritten with the existing CNMCRG member.
+    </p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+You can specify keyword parameters in CNMSJCRG. Each keyword parameter and value must be specified on a separate line, just below the CNMECRG command. Do not continue the value onto a second line. All characters typed on a line are interpreted as input to CNMECRG. If a keyword parameter is specified more than once, the first value is used and all subsequent values specified are ignored. Input ends when either a blank line or a /* occurs.
+</p>
+
+<hr>
+
+<hr>
+
+<img style="width: 100%;height: 100%;" src="Screenshot%202024-01-24%20194914.png">
+
+<hr>
+
+<hr>
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">The first section of the CNMSTYLE report is shown in Figure 4 on page 62. This part of the report contains general information related to the CNMSTYLE member, such as:
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    •	The date and time the report was created</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	The &NV2I symbolic variable value being used </p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	A nested listing of the members included by the CNMSTYLE member </p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	A list of the CNMSTYLE towers that are enabled when NetView initializes </p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	A list of CNMSTYLE statements that apply to base NetView
+
+</p>
+<img  style="width: 100%;height: 100%;"src="Screenshot 2024-01-24 201046.png">
+
+<img style="width: 100%;height: 100%;" src="Screenshot 2024-01-24 201353.png">
+
+<hr>
+
+<hr>
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">If the resolve field has no value listed, no modifications were made to the statement.</p
+    <p style="font-size: 20px;font-style: normal;margin: inherit;"><b>
+    Condition</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+Indicates that a condition is required for the listed CNMSTYLE statement to be active, such as a tower that must be enabled. If only one tower is required to be enabled the condition field is set to the required tower name. The first 10 characters of the tower name are listed. If more than one tower must be enabled or if some other condition must be met, the condition field is set to four asterisks (****).
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+If the condition field has no value listed, no conditions are required for the statement to be active.</p>
+<p style="font-size: 25px;font-style: normal;margin: inherit;"><b>Statement</b></p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+Lists the CNMSTYLE statement and its value. Extra spacing in the statement might be removed, along with any tower conditionals that are found at the beginning of the statement. Statements can be further modified by having values substituted into either the CNMSTYLE keyword or its value.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+Values of CNMSTYLE keywords that contain passwords and other values critical to security are identified as a security risk and are listed in the report as four asterisks (****) to prevent unauthorized viewing.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+
+The second section of the report lists CNMSTYLE statements for specific NetView functions. For example, Figure 5 on page 63 lists statements for the hardware monitor (NPDA) component.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+If a CNMSTYLE statement applies to multiple NetView functions, that statement is listed for each NetView function to which it applies. For example, the TOWER statement applies to both the hardware monitor and the session monitor, and various other NetView functions.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+Within a function, the most critical statements are listed first, followed by less critical statements. NetView functions are presented in the report alphabetically.
+</p>
+
+<img style="width: 100%;height: 100%;" src="Screenshot 2024-01-24 202027.png">
+
+<hr>
+
+<hr>
+
+<img style="width: 100%;height: 100%;" src="Screenshot 2024-01-24 202314.png">
+
+<hr>
+
+<hr>
+
+<img style="width: 100%;height: 100%;" src="Screenshot 2024-01-24 202436.png">
+
+<hr>
+
+<hr>
+
+
+<h1 style="color: bule;font-size: 35px;">Starting the NetView Program Before Starting JES</h1>
+<hr class="h">
+      <style>
+          .h{
+              
+              widows: 100%;
+              height: 7px;
+              border: 0 none;
+              margin-right: auto;
+              margin-left: auto;
+              margin-top: 0px;
+              margin-bottom: 0px;
+              background-color:blue;
+          } 
+          h1{
+              
+              color: blue;
+              font-family: aller;
+              font-size: 45px;
+          }
+      </style>
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+If you plan to start the NetView program and the SSI under the master subsystem before you start JES, the following rules apply:
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    •	Start the PROC with the START command using the parameter SUB=MSTR.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	When you start the NetView program with the SUB=MSTR parameter, ensure that the TASK.DSIRQJOB.INIT statement in the CNMSTYLE member has a value of YES to start the DSIRQJOB task. This is needed for the SUBMIT or ALLOCATE (for INTRDR or SYSOUT files only) commands to complete successfully.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    <b>Note:</b> When DSIRQJOB ends, it does not release the job ID. JES releases the job ID.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	Store the procedure in the data set SYS1.PROCLIB, not in a user PROCLIB supported by JES.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	The procedures must contain only a single job step.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	You cannot reference SYSIN, SYSOUT, or VIO data sets. If you are using the sample start procedures, comment out all references to the symbolic variable SOUTA=A in CNMPROC (CNMSJ009).</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	JES is coded as the primary subsystem. In the IEFSSN member for JES, code the NOSTART parameter so that MVS does not automatically start JES at initialization.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	You cannot specify AMP=AMORG on any log data set.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+•	After the DSIRQJOB job receives a job ID from the JES program, if the JES program ends abnormally or ends without notifying the DSIRQJOB job to release the job ID, the DSIRQJOB job and the NetView program cannot be stopped before the JES program becomes active again. If the JES program ends abnormally or is stopped by a user from the command line, you can use the NetView MVS Command Revision function to stop the DSIRQJOB job and the NetView program.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    
+These are the steps that you can use to set up the NetView MVS Command Revision function to stop the DSIRQJOB job when a command is entered to abnormally end the JES program (for example
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+$PJES2,ABEND or $PJES2,TERM).
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+1.	Install the NetView MVS Command Revision function. For more information, see IBM Z NetView Installation: Configuring Additional Components.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    2.	Create a REXX procedure for the NetView program and use it to issue two commands:</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    •	'STOP TASK=DSIRQJOB'</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	'REISSUE MVS' arg(1)</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">3.	In a new or existing command revision table, include code similar to the following example:
+</p>
+
+
+
+<h1 style="font-size: 35; color: bule;">Starting the NetView Program Without Restarting the MVS System	</h1>
+
+<hr class="h">
+      <style>
+          .h{
+              
+              widows: 100%;
+              height: 7px;
+              border: 0 none;
+              margin-right: auto;
+              margin-left: auto;
+              margin-top: 0px;
+              margin-bottom: 0px;
+              background-color:blue;
+          } 
+          h1{
+              
+              color: blue;
+              font-family: aller;
+              font-size: 45px;
+          }
+      </style>
+
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">The normal process for installing and starting the NetView program for the first time requires restarting the MVS system, in order to load required LPA modules and activate required subsystems. If this is not practical, you can avoid restarting the MVS system by completing the same steps manually.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+
+    Before you begin</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+This procedure assumes that you have completed all installation procedures previously documented in this information, but without restarting the MVS system
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+Important: This procedure assumes that you are installing the NetView program for the first time. If you are migrating from a previous version of the NetView program, see the IBM Z NetView Installation: Migration Guide.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    Procedure</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+1.	Dynamically add the following MVS system symbols:
+</p>
+
+<img  style="width: 100%;height: 100%;"src="Screenshot 2024-01-24 203545.png">
+
+<hr>
+<hr>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">2.	Dynamically add the required NetView modules to the link pack area (LPA):</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	BNJLINTB</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	BNJMTERM</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	BNJSVC76</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	(CNMCNETV,CNMNETV)</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	CNMCSRVP</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	CNMCSSEI</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	CNMCSSPI</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	DSICSENF</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	DSIELSVC</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	DSIRVCEX</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	DSISPNOT</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	DSI4LCUI</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">•	DSI4LSIT</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">Use the SETPROG LPA ADD command to add each module:</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+where module is the module name or names and NETVIEW.V6R3M0.SCNMLPA1 is the NetView library where the module was installed. Note that CNMCNETV and its alias, CNMNETV, must be specified together, separated by commas, and within parentheses, in the SETPROG command.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+3.	Add the required NetView modules to the list of APF-authorized libraries.
+ 
+</p>
+
+<hr>
+
+
+<hr>
+
+
+<img style="width: 100%;height: 100%;" src="Screenshot 2024-01-24 204014.png">
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">where vol-ser is the name of the volume where the NetView V6R3 libraries were allocated.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+4.	Verify that the subsystem (SSI) procedure and the main NetView procedure both include a STEPLIB DD statement that specifies the data set names for the NetView libraries.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+If you plan to start RODM, the RODM Loader, GMFHS, or the Event/Automation Service (E/AS), verify that these procedures also include STEPLIB DD statements that specify the data set names for the NetView libraries.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+5.	Optional: If you plan to run multiple instances of the NetView program within the same LPAR, decide which is the first instance.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+Typically, if only one instance manages system messages, that instance is first; however, you can choose the instance that you prefer. For more information about running multiple NetView programs in the same LPAR refer to IBM Z NetView Installation: Configuring Additional Components.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+6.	Dynamically add the subsystem for the first NetView instance by issuing the SETSSI ADD command:
+</p>
+
+<img style="width: 100%;height: 100px;" src="Screenshot 2024-01-24 204308.png">
+
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+where ssiname is the subsystem name of the first NetView instance, and parms is the initialization parameters you want to specify (omit this keyword to use the default initialization parameters). The subsystem name is the four-character name specified either by the IEFSSNxx member or by the SETSSI ADD command.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    <b>Tip:</b> By convention, the subsystem name for an instance of the NetView program consists of the first four characters of the job name associated with its main address space and the matching SSI procedure. The subsystem name you use for an instance of NetView must not be the same as any other subsystem name in use; multiple NetView address spaces cannot use the same subsystem name.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+Including the INITPARM parameter with any value on the SETSSI command causes all settings that are specified on previous INITPARM parameters for NetView subsystems to be erased and the active Canzlog data space to be deleted and reallocated, resulting in loss of all messages from the active data space. This means that those messages that are issued during the current IPL will only be available from an archive.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+For example, additionally specifying INITPARM='TINYDS,STATIC' on the SETSSI command causes the Canzlog data space to be deleted and reallocated with a size of 512 MB and not expandable, and foreign messages are not to be logged in the Canzlog log.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+Omitting the INITPARM parameter causes the Canzlog data space with the existing options to be preserved.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+Message CNM617 is displayed when the SETSSI ADD command completes.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+    <b>Usage note:</b> The SETSSI ACTIVATE command is not supported by the NetView subsystem.</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+7.	Optional: Repeat the SETSSI ADD command for any additional instances of the NetView program in the LPAR.
+Make sure the CNM617 message is displayed for each instance before you proceed to the next.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+8.	Start the subsystem (SSI) procedure for each NetView instance as documented in “Starting the NetView Subsystem Address Space Using Job CNMPSSI” on page 71.
+</p>
+<p style="font-size: 20px;font-style: normal;margin: inherit;">
+Make sure the CNM541 message is displayed for each procedure before you proceed to the next.
+ 
+
+
+
+</p>
+
+<hr>
+
+
+<hr>
+
+<p><b>Tip:</b> This step is required before you start the NetView program for the first time. However, if you do not intend to use the NetView Program-to-Program Interface (PPI), the Message Revision Table (MRT), or the Command Revision Table (CRT), you can stop the subsystem after the CNM541 message is displayed.
+</p>
+<p>
+    9.	Start the main procedure for each NetView instance as documented in <u>“Starting the NetView Program Using Job CNMPROC” on page 72.</u>
+ 
+</p>
+
+</body>
+</html>
